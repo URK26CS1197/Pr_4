@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Ecosphere</title>
+
+  <!-- Roboto from Google Fonts (preconnect + display=swap to avoid render blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  
+  <style>
+    /* ---------- Practicum 4: Text Styles and Layouts ---------- */
+    :root {
+      --font-main: 'Roboto', Arial, sans-serif;
+      --color-brand: #1b6b5f;
+      --color-dark: #10302b;
+      --color-heading: #00008B;
+      --color-bg: #e8f1ee;
+      --text-min: 16px;
+    }
+
+    body {
+      font-family: var(--font-main);
+      font-size: var(--text-min);
+      line-height: 1.5;
+      background-color: var(--color-bg);
+      color: var(--color-dark);
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--color-brand);
+    }
+
+    h3 {
+      font-size: 20px;
+      color: var(--color-heading);
+    }
+
+    p {
+      word-spacing: 3px;
+    }
+
+    em {
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .highlight {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: var(--color-brand);
+    }
+
+    input, select, textarea, button {
+      font-family: inherit;
+      font-size: var(--text-min);
+    }
+
+    /* Page layout: sidebar + main content */
+    .page-layout {
+      display: flex;
+      gap: 20px;
+      width: 95%;
+      max-width: 1200px;
+      margin: 20px auto;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border: 1px solid var(--color-brand);
+      border-radius: 4px;
+      padding: 15px;
+      position: sticky;
+      top: 10px;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      text-align: center;
+      border-bottom: 1px solid var(--color-brand);
+      padding-bottom: 6px;
+    }
+
+    .sidebar p {
+      font-style: italic;
+    }
+
+    .sidebar nav a {
+      display: block;
+      margin: 8px 0;
+      color: var(--color-dark);
+    }
+
+    .main-content {
+      flex: 3;
+      min-width: 0;
+      background-color: white;
+      border: 1px solid var(--color-brand);
+      border-radius: 4px;
+      padding: 15px;
+    }
+
+    .main-content > p {
+      text-indent: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .page-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        position: static;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+  
+    header {
+      background-color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    header h1 {
+      color: #1b6b5f;
+      margin: 0;
+    }
+
+    nav a {
+      color: #10302b;
+      margin: 0 10px;
+    }
+
+   
+    .music {
+      background-color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    
+    .banner {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    
+    .media {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .box {
+      width: 48%;
+      display: inline-block;
+      vertical-align: top;
+      margin-bottom: 15px;
+    }
+
+    .box iframe,
+    .box video {
+      width: 100%;
+      height: 280px;
+      border: 0;
+    }
+
+   
+    .form-section {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+
+    .form-section input,
+    .form-section select,
+    .form-section textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px 0;
+      box-sizing: border-box;
+    }
+
+    /* ---------- Practicum 3: Reservations Form ---------- */
+    .reservation-form {
+      background-color: white;
+      border: 2px solid #1b6b5f;
+      border-radius: 6px;
+      padding: 10px 20px 20px 20px;
+    }
+
+    .reservation-form fieldset {
+      border: 1px solid #1b6b5f;
+      border-radius: 4px;
+      margin: 0 0 15px 0;
+      padding: 10px 15px 0 15px;
+    }
+
+    .reservation-form legend {
+      font-weight: bold;
+      color: #1b6b5f;
+      padding: 0 6px;
+    }
+
+    .reservation-form .hint {
+      display: block;
+      font-size: 12px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      color: #4a625d;
+    }
+
+    .reservation-form .required-mark {
+      color: #b3261e;
+    }
+
+    .reservation-form .buttons {
+      text-align: center;
+    }
+
+    .reservation-form button {
+      width: auto;
+      padding: 8px 22px;
+      margin: 0 6px;
+      border: 0;
+      border-radius: 4px;
+      background-color: #1b6b5f;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .reservation-form button[type="reset"] {
+      background-color: #10302b;
+    }
+
+    .reservation-form input:focus,
+    .reservation-form select:focus,
+    .reservation-form textarea:focus,
+    .reservation-form button:focus {
+      outline: 3px solid #f2b705;
+      outline-offset: 1px;
+    }
+
+    .reservation-form input:invalid:not(:placeholder-shown) {
+      border: 2px solid #b3261e;
+    }
+
+    footer {
+      background-color: #10302b;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    
+    @media (max-width: 700px) {
+      .box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+ 
+  <header>
+    <h1>Ecosphere</h1>
+    <p>Sustainable Supply Chain and Logistics</p>
+  </header>
+
+  
+  <div class="music">
+    <p>Play Music:</p>
+    <audio controls autoplay>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  
+  <img class="banner"
+       src="https://placehold.co/1200x300/1b6b5f/ffffff?text=Ecosphere+-+Sustainable+Logistics"
+       alt="Ecosphere banner">
+
+  
+  <div class="page-layout">
+
+  <aside class="sidebar">
+    <h3>Sidebar</h3>
+    <nav>
+      <a href="#media">Media Elements</a>
+      <a href="#reservation">Reservations Form</a>
+      <a href="#application">Application Form</a>
+    </nav>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </aside>
+
+  <main class="main-content">
+  <h2>Simple Web Layout Using CSS</h2>
+  <p>
+    Ecosphere focuses on <em>sustainable</em> supply chains and
+    <span class="highlight">green logistics</span>.
+    This page uses CSS text styles and a sidebar and main content layout.
+  </p>
+
+  <div class="media" id="media">
+    <h2>Media Elements</h2>
+
+   
+    <div class="box">
+      <iframe src="Ecosphere.pdf"
+              title="Ecosphere PDF"></iframe>
+    </div>
+
+  
+    <div class="box">
+      
+<iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/LgnXizpZ2GY"
+    title="EcoSphere Video"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+</iframe>
+
+    </div>
+
+    
+    <div class="box">
+      <video controls>
+        <source autoplay src="ecosphere.mp4" type="video/mp4">
+        <source autoplay src="ecosphere.mp4" type="video/ogg">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    
+    <div class="box">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.3598830116985!2d76.74148607536158!3d10.936163989222454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba866bd6aaaaaab%3A0xc650b8a75e7b51f0!2sKarunya%20Institute%20of%20Technology%20and%20Sciences%20(Deemed%20University)!5e0!3m2!1sen!2sin!4v1790841741287!5m2!1sen!2sin"
+              title="Ecosphere location"></iframe>
+    </div>
+  </div>
+
+
+  <!-- Practicum 3: Web Forms - Reservations Form -->
+  <div class="form-section" id="reservation">
+    <h2>Reservations Form</h2>
+    <form class="reservation-form" method="post" action="submit.php">
+      <p><span class="required-mark">*</span> Required field</p>
+
+      <fieldset>
+        <legend>Guest Name</legend>
+
+        <label for="firstName">First Name <span class="required-mark">*</span></label>
+        <input type="text" id="firstName" name="firstName" maxlength="40"
+               autocomplete="given-name" required autofocus>
+
+        <label for="lastName">Last Name <span class="required-mark">*</span></label>
+        <input type="text" id="lastName" name="lastName" maxlength="40"
+               autocomplete="family-name" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Address</legend>
+
+        <label for="street">Number &amp; Street <span class="required-mark">*</span></label>
+        <input type="text" id="street" name="street" maxlength="80"
+               autocomplete="street-address" required>
+
+        <label for="city">City <span class="required-mark">*</span></label>
+        <input type="text" id="city" name="city" maxlength="40"
+               autocomplete="address-level2" required>
+
+        <label for="state">State <span class="required-mark">*</span></label>
+        <input type="text" id="state" name="state" maxlength="40"
+               autocomplete="address-level1" required>
+
+        <label for="zip">Zip Code <span class="required-mark">*</span></label>
+        <input type="text" id="zip" name="zip" inputmode="numeric"
+               pattern="[0-9]{5,6}" maxlength="6" placeholder="e.g. 641114"
+               title="Enter a 5 or 6 digit zip code" autocomplete="postal-code" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Stay Details</legend>
+
+        <label for="checkin">Check-in Date <span class="required-mark">*</span></label>
+        <input type="date" id="checkin" name="checkin" required>
+
+        <label for="checkout">Check-out Date <span class="required-mark">*</span></label>
+        <input type="date" id="checkout" name="checkout" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Contact</legend>
+
+        <label for="phone">Phone <span class="required-mark">*</span></label>
+        <input type="tel" id="phone" name="phone"
+               pattern="\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{4}"
+               placeholder="(###) ###-####"
+               title="Format: (###) ###-#### or ##########"
+               autocomplete="tel" aria-describedby="phoneHint" required>
+        <span class="hint" id="phoneHint">Format: (###) ###-#### or ##########</span>
+
+        <label for="email">E-mail Address <span class="required-mark">*</span></label>
+        <input type="email" id="email" name="email"
+               placeholder="name@domain.com" autocomplete="email" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Payment</legend>
+
+        <label for="payment">Payment Method <span class="required-mark">*</span></label>
+        <select id="payment" name="payment" required>
+          <option value="" selected disabled>Select a payment method</option>
+          <option value="credit">Credit Card</option>
+          <option value="debit">Debit Card</option>
+          <option value="upi">UPI</option>
+          <option value="netbanking">Net Banking</option>
+        </select>
+
+        <label for="cardNumber">Card Number <span class="required-mark">*</span></label>
+        <input type="text" id="cardNumber" name="cardNumber" inputmode="numeric"
+               pattern="[0-9]{13,19}" minlength="13" maxlength="19"
+               placeholder="Digits only, no spaces"
+               title="Enter 13 to 19 digits, no spaces or dashes"
+               autocomplete="cc-number" required>
+        <span class="hint">Demo form only - do not enter a real card number.</span>
+      </fieldset>
+
+      <label for="requests">Special Requests</label>
+      <textarea id="requests" name="requests" rows="4" maxlength="300"
+                placeholder="Enter your request here"></textarea>
+
+      <div class="buttons">
+        <button type="submit">Submit</button>
+        <button type="reset">Clear</button>
+      </div>
+    </form>
+  </div>
+
+  
+  <div class="form-section" id="application">
+    <h2>Application Form</h2>
+    <form>
+      <label>Full Name</label>
+      <input type="text" required>
+
+      <label>Email</label>
+      <input type="email" required>
+
+      <label>Role</label>
+      <select>
+        <option>Supply Chain Analyst</option>
+        <option>Fleet Sustainability Coordinator</option>
+        <option>Warehouse Operations</option>
+      </select>
+
+      <label>Why do you want to join Ecosphere?</label>
+      <textarea rows="4"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  </main>
+  </div>
+
+  <script>
+    // Practicum 3: date input validation for the Reservations Form
+    (function () {
+      var checkin = document.getElementById('checkin');
+      var checkout = document.getElementById('checkout');
+      var today = new Date().toISOString().split('T')[0];
+      checkin.min = today;
+      checkout.min = today;
+      checkin.addEventListener('change', function () {
+        if (checkin.value) {
+          var next = new Date(checkin.value);
+          next.setDate(next.getDate() + 1);
+          checkout.min = next.toISOString().split('T')[0];
+          if (checkout.value && checkout.value < checkout.min) { checkout.value = ''; }
+        }
+      });
+    })();
+  </script>
+
+  <footer>
+    <p>&copy; 2026 Ecosphere</p>
+  </footer>
+
+</body>
+</html>
